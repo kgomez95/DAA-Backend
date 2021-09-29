@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.API", "DAA.API\DAA.API.csproj", "{9833417C-56DD-4C0E-9946-3ED189005C7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9833417C-56DD-4C0E-9946-3ED189005C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9833417C-56DD-4C0E-9946-3ED189005C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9833417C-56DD-4C0E-9946-3ED189005C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9833417C-56DD-4C0E-9946-3ED189005C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D95CD070-DE04-46DD-AD5B-AD31DBF22D25}
+	EndGlobalSection
+EndGlobal
