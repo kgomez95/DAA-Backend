@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.API", "DAA.API\DAA.API.csproj", "{9833417C-56DD-4C0E-9946-3ED189005C7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.API", "DAA.API\DAA.API.csproj", "{9833417C-56DD-4C0E-9946-3ED189005C7D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.Models", "DAA.Database.Models\DAA.Database.Models.csproj", "{0F82C68C-28B0-4289-9A43-20141D11721D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Database.ModelsDTO", "DAA.Database.ModelsDTO\DAA.Database.ModelsDTO.csproj", "{230ED7EE-5BE3-4359-87EC-6521A665FC6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{9833417C-56DD-4C0E-9946-3ED189005C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9833417C-56DD-4C0E-9946-3ED189005C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9833417C-56DD-4C0E-9946-3ED189005C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F82C68C-28B0-4289-9A43-20141D11721D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F82C68C-28B0-4289-9A43-20141D11721D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F82C68C-28B0-4289-9A43-20141D11721D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F82C68C-28B0-4289-9A43-20141D11721D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230ED7EE-5BE3-4359-87EC-6521A665FC6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230ED7EE-5BE3-4359-87EC-6521A665FC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230ED7EE-5BE3-4359-87EC-6521A665FC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230ED7EE-5BE3-4359-87EC-6521A665FC6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
