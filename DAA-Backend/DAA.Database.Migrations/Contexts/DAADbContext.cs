@@ -95,7 +95,85 @@ namespace DAA.Database.Migrations.Contexts
         /// <param name="modelBuilder">Parámetro necesario para configurar la tabla.</param>
         private void OnTableCreating_DatatablesRecords(ModelBuilder modelBuilder)
         {
-            // TODO: ...
+            // Nombre de la tabla.
+            modelBuilder.Entity<DatatablesRecord>().ToTable(DbTablesValues.DatatablesRecords.TABLE_NAME);
+
+            // Clave primaria.
+            modelBuilder.Entity<DatatablesRecord>().HasKey(x => x.Id);
+
+            // Claves foraneas.
+            modelBuilder.Entity<DatatablesRecord>()
+                .HasOne(x => x.DatatablesTable)
+                .WithMany(x => x.DatatablesRecords)
+                .HasForeignKey(x => x.DataTablesTableId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Índices.
+            modelBuilder.Entity<DatatablesRecord>().HasIndex(x => x.Id);
+            modelBuilder.Entity<DatatablesRecord>().HasIndex(x => x.Name);
+            modelBuilder.Entity<DatatablesRecord>().HasIndex(x => x.Code);
+
+            // Mapeo de campos.
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<int>(x => x.Id)
+                .HasColumnName(DbTablesValues.DatatablesRecords.ID);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<string>(x => x.Code)
+                .HasColumnName(DbTablesValues.DatatablesRecords.CODE)
+                .HasMaxLength(DbTablesValues.DatatablesRecords.CODE_LENGTH)
+                .IsRequired(DbTablesValues.DatatablesRecords.CODE_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<string>(x => x.Name)
+                .HasColumnName(DbTablesValues.DatatablesRecords.NAME)
+                .HasMaxLength(DbTablesValues.DatatablesRecords.NAME_LENGTH)
+                .IsRequired(DbTablesValues.DatatablesRecords.NAME_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<int>(x => x.Type)
+                .HasColumnName(DbTablesValues.DatatablesRecords.TYPE)
+                .IsRequired(DbTablesValues.DatatablesRecords.TYPE_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<int>(x => x.Order)
+                .HasColumnName(DbTablesValues.DatatablesRecords.ORDER)
+                .IsRequired(DbTablesValues.DatatablesRecords.ORDER_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<bool>(x => x.HasFilter)
+                .HasColumnName(DbTablesValues.DatatablesRecords.HAS_FILTER)
+                .IsRequired(DbTablesValues.DatatablesRecords.HAS_FILTER_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<bool>(x => x.IsBasic)
+                .HasColumnName(DbTablesValues.DatatablesRecords.IS_BASIC)
+                .IsRequired(DbTablesValues.DatatablesRecords.IS_BASIC_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<bool>(x => x.IsRange)
+                .HasColumnName(DbTablesValues.DatatablesRecords.IS_RANGE)
+                .IsRequired(DbTablesValues.DatatablesRecords.IS_RANGE_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<string>(x => x.DefaultValue)
+                .HasColumnName(DbTablesValues.DatatablesRecords.DEFAULT_VALUE)
+                .HasMaxLength(DbTablesValues.DatatablesRecords.DEFAULT_VALUE_LENGTH)
+                .IsRequired(DbTablesValues.DatatablesRecords.DEFAULT_VALUE_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<string>(x => x.DefaultFrom)
+                .HasColumnName(DbTablesValues.DatatablesRecords.DEFAULT_FROM)
+                .HasMaxLength(DbTablesValues.DatatablesRecords.DEFAULT_FROM_LENGTH)
+                .IsRequired(DbTablesValues.DatatablesRecords.DEFAULT_FROM_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<string>(x => x.DefaultTo)
+                .HasColumnName(DbTablesValues.DatatablesRecords.DEFAULT_TO)
+                .HasMaxLength(DbTablesValues.DatatablesRecords.DEFAULT_TO_LENGTH)
+                .IsRequired(DbTablesValues.DatatablesRecords.DEFAULT_TO_REQUIRED);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<DateTime>(x => x.CreatedAt)
+                .HasColumnName(DbFieldsValues.AuditableFields.CREATED_AT)
+                .HasDefaultValueSql(DbFieldsValues.AuditableFields.CREATED_AT_DEFAULT_VALUE);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<DateTime>(x => x.UpdatedAt)
+                .HasColumnName(DbFieldsValues.AuditableFields.UPDATED_AT)
+                .HasDefaultValueSql(DbFieldsValues.AuditableFields.UPDATED_AT_DEFAULT_VALUE);
+            modelBuilder.Entity<DatatablesRecord>()
+                .Property<int>(x => x.DataTablesTableId)
+                .HasColumnName(DbTablesValues.DatatablesRecords.DATATABLES_TABLES)
+                .IsRequired(DbTablesValues.DatatablesRecords.DATATABLES_TABLES_REQUIRED);
         }
 
         /// <summary>
