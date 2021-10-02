@@ -9,9 +9,9 @@
         public bool HasFilter { get; set; }
         public bool IsBasic { get; set; }
         public bool IsRange { get; set; }
-        public object DefaultValue { get; set; }
-        public object DefaultFrom { get; set; }
-        public object DefaultTo { get; set; }
+        public string DefaultValue { get; set; }
+        public string DefaultFrom { get; set; }
+        public string DefaultTo { get; set; }
 
         public int DataTablesTableId { get; set; }
         public DatatablesTableDTO DatatablesTable { get; set; }

@@ -1,0 +1,3 @@
+{
+  "DAADbConnection": "Server=localhost;Database=DAA_Test;User Id=TU_USUARIO;Password=TU_CONTRASEÑA;MultipleActiveResultSets=true"
+}
