@@ -3,6 +3,8 @@ using DAA.Database.Models;
 using DAA.Database.Models.DataTables;
 using DAA.Database.Models.Platforms;
 using DAA.Database.Models.VideoGames;
+using DAA.Database.Views.Platforms;
+using DAA.Database.Views.VideoGames;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
@@ -15,10 +17,16 @@ namespace DAA.Database.Migrations.Contexts
     public class DAADbContext : DbContext
     {
         #region Atributos públicos.
+        // Tablas.
         public DbSet<DatatablesRecord> DatatablesRecords { get; set; }
         public DbSet<DatatablesTable> DatatablesTables { get; set; }
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<VideoGame> VideoGames { get; set; }
+
+        // Vistas.
+        public DbSet<PlatformView> PlatformsView { get; set; }
+        public DbSet<VideoGameView> VideoGamesView { get; set; }
+        public DbSet<VideoGameScoreView> VideoGamesScoreView { get; set; }
         #endregion
 
         #region Atributos privados.
@@ -79,11 +87,18 @@ namespace DAA.Database.Migrations.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             #region Tablas.
             this.OnTableCreating_DatatablesRecords(modelBuilder);
             this.OnTableCreating_DatatablesTables(modelBuilder);
             this.OnTableCreating_Platforms(modelBuilder);
             this.OnTableCreating_VideoGames(modelBuilder);
+            #endregion
+
+            #region Vistas.
+            this.OnViewCreating_Platforms(modelBuilder);
+            this.OnViewCreating_VideoGames(modelBuilder);
+            this.OnViewCreating_VideoGameScores(modelBuilder);
             #endregion
         }
         #endregion
@@ -360,6 +375,47 @@ namespace DAA.Database.Migrations.Contexts
                 .Property<int>(x => x.PlatformId)
                 .HasColumnName(DbTablesValues.VideoGames.PLATFORM)
                 .IsRequired(DbTablesValues.VideoGames.PLATFORM_REQUIRED);
+        }
+        #endregion
+
+        #region Configuración de las vistas.
+        /// <summary>
+        /// Inicializa la vista "VW_VIDEOGAMESCORE".
+        /// </summary>
+        /// <param name="modelBuilder">Parámetro necesario para configurar la vista.</param>
+        private void OnViewCreating_VideoGameScores(ModelBuilder modelBuilder)
+        {
+            // Nombre de la vista.
+            modelBuilder.Entity<VideoGameScoreView>().ToView(DbViewsValues.VideoGameScores.VIEW_NAME);
+
+            // Clave primaria.
+            modelBuilder.Entity<VideoGameScoreView>().HasKey(x => x.Id);
+        }
+
+        /// <summary>
+        /// Inicializa la vista "VW_VIDEOGAMES".
+        /// </summary>
+        /// <param name="modelBuilder">Parámetro necesario para configurar la vista.</param>
+        private void OnViewCreating_VideoGames(ModelBuilder modelBuilder)
+        {
+            // Nombre de la vista.
+            modelBuilder.Entity<VideoGameView>().ToView(DbViewsValues.VideoGames.VIEW_NAME);
+
+            // Clave primaria.
+            modelBuilder.Entity<VideoGameView>().HasKey(x => x.VideoGameId);
+        }
+
+        /// <summary>
+        /// Inicializa la vista "VW_PLATFORMS".
+        /// </summary>
+        /// <param name="modelBuilder">Parámetro necesario para configurar la vista.</param>
+        private void OnViewCreating_Platforms(ModelBuilder modelBuilder)
+        {
+            // Nombre de la vista.
+            modelBuilder.Entity<PlatformView>().ToView(DbViewsValues.Platforms.VIEW_NAME);
+
+            // Clave primaria.
+            modelBuilder.Entity<PlatformView>().HasKey(x => x.Id);
         }
         #endregion
     }

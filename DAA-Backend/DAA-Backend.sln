@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.Models", "DAA.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.ModelsDTO", "DAA.Database.ModelsDTO\DAA.Database.ModelsDTO.csproj", "{230ED7EE-5BE3-4359-87EC-6521A665FC6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Database.Migrations", "DAA.Database.Migrations\DAA.Database.Migrations.csproj", "{D417D6B4-E2EF-408B-951F-E0AADC9065AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.Migrations", "DAA.Database.Migrations\DAA.Database.Migrations.csproj", "{D417D6B4-E2EF-408B-951F-E0AADC9065AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Constants", "DAA.Constants\DAA.Constants.csproj", "{E5D68A4E-EB1A-4A9E-8F77-7200733DC7BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Constants", "DAA.Constants\DAA.Constants.csproj", "{E5D68A4E-EB1A-4A9E-8F77-7200733DC7BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Database.Views", "DAA.Database.Views\DAA.Database.Views.csproj", "{120A791D-3EB3-4F2F-BBAC-6D341EC76112}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Utils", "DAA.Utils\DAA.Utils.csproj", "{57DE0215-210F-4D1A-A568-2B226B90FEFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{E5D68A4E-EB1A-4A9E-8F77-7200733DC7BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5D68A4E-EB1A-4A9E-8F77-7200733DC7BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5D68A4E-EB1A-4A9E-8F77-7200733DC7BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{120A791D-3EB3-4F2F-BBAC-6D341EC76112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120A791D-3EB3-4F2F-BBAC-6D341EC76112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120A791D-3EB3-4F2F-BBAC-6D341EC76112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120A791D-3EB3-4F2F-BBAC-6D341EC76112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57DE0215-210F-4D1A-A568-2B226B90FEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57DE0215-210F-4D1A-A568-2B226B90FEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57DE0215-210F-4D1A-A568-2B226B90FEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57DE0215-210F-4D1A-A568-2B226B90FEFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

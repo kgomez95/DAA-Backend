@@ -28,6 +28,8 @@
   <ItemGroup>
     <ProjectReference Include="..\DAA.Constants\DAA.Constants.csproj" />
     <ProjectReference Include="..\DAA.Database.Models\DAA.Database.Models.csproj" />
+    <ProjectReference Include="..\DAA.Database.Views\DAA.Database.Views.csproj" />
+    <ProjectReference Include="..\DAA.Utils\DAA.Utils.csproj" />
   </ItemGroup>
 
 </Project>

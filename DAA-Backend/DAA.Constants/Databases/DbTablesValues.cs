@@ -108,7 +108,7 @@
 
             public const string DESCRIPTION_TYPE = "TEXT";
             public const string PRICE_TYPE = "MONEY";
-            public const string SCORE_TYPE = "NUMERIC";
+            public const string SCORE_TYPE = "NUMERIC(3,2)";
         }
     }
 }
