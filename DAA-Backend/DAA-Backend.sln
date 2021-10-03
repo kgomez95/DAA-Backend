@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.Migrations", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Constants", "DAA.Constants\DAA.Constants.csproj", "{E5D68A4E-EB1A-4A9E-8F77-7200733DC7BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Database.Views", "DAA.Database.Views\DAA.Database.Views.csproj", "{120A791D-3EB3-4F2F-BBAC-6D341EC76112}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Database.ViewsModels", "DAA.Database.Views\DAA.Database.ViewsModels.csproj", "{120A791D-3EB3-4F2F-BBAC-6D341EC76112}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Utils", "DAA.Utils\DAA.Utils.csproj", "{57DE0215-210F-4D1A-A568-2B226B90FEFF}"
 EndProject
