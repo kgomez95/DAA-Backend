@@ -241,7 +241,57 @@ namespace DAA.Database.Migrations.Contexts
         /// <param name="modelBuilder">Parámetro necesario para configurar la tabla.</param>
         private void OnTableCreating_Platforms(ModelBuilder modelBuilder)
         {
-            // TODO: ...
+            // Nombre de la tabla.
+            modelBuilder.Entity<Platform>().ToTable(DbTablesValues.Platforms.TABLE_NAME);
+
+            // Clave primaria.
+            modelBuilder.Entity<Platform>().HasKey(x => x.Id);
+
+            // Claves foraneas.
+            modelBuilder.Entity<Platform>()
+                .HasMany(x => x.VideoGames)
+                .WithOne(x => x.Platform)
+                .HasForeignKey(x => x.PlatformId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Índices.
+            modelBuilder.Entity<Platform>().HasIndex(x => x.Id);
+            modelBuilder.Entity<Platform>().HasIndex(x => x.Name);
+            modelBuilder.Entity<Platform>().HasIndex(x => x.Company);
+            modelBuilder.Entity<Platform>().HasIndex(x => x.Price);
+            modelBuilder.Entity<Platform>().HasIndex(x => x.ReleaseDate);
+
+            // Mapeo de campos.
+            modelBuilder.Entity<Platform>()
+                .Property<int>(x => x.Id)
+                .HasColumnName(DbTablesValues.Platforms.ID);
+            modelBuilder.Entity<Platform>()
+                .Property<string>(x => x.Name)
+                .HasColumnName(DbTablesValues.Platforms.NAME)
+                .HasMaxLength(DbTablesValues.Platforms.NAME_LENGTH)
+                .IsRequired(DbTablesValues.Platforms.NAME_REQUIRED);
+            modelBuilder.Entity<Platform>()
+                .Property<string>(x => x.Company)
+                .HasColumnName(DbTablesValues.Platforms.COMPANY)
+                .HasMaxLength(DbTablesValues.Platforms.COMPANY_LENGTH)
+                .IsRequired(DbTablesValues.Platforms.COMPANY_REQUIRED);
+            modelBuilder.Entity<Platform>()
+                .Property<decimal>(x => x.Price)
+                .HasColumnName(DbTablesValues.Platforms.PRICE)
+                .IsRequired(DbTablesValues.Platforms.PRICE_REQUIRED)
+                .HasColumnType(DbTablesValues.Platforms.PRICE_TYPE);
+            modelBuilder.Entity<Platform>()
+                .Property<DateTime>(x => x.ReleaseDate)
+                .HasColumnName(DbTablesValues.Platforms.RELEASE_DATE)
+                .IsRequired(DbTablesValues.Platforms.RELEASE_DATE_REQUIRED);
+            modelBuilder.Entity<Platform>()
+                .Property<DateTime>(x => x.CreatedAt)
+                .HasColumnName(DbFieldsValues.AuditableFields.CREATED_AT)
+                .HasDefaultValueSql(DbFieldsValues.AuditableFields.CREATED_AT_DEFAULT_VALUE);
+            modelBuilder.Entity<Platform>()
+                .Property<DateTime>(x => x.UpdatedAt)
+                .HasColumnName(DbFieldsValues.AuditableFields.UPDATED_AT)
+                .HasDefaultValueSql(DbFieldsValues.AuditableFields.UPDATED_AT_DEFAULT_VALUE);
         }
 
         /// <summary>
@@ -250,7 +300,66 @@ namespace DAA.Database.Migrations.Contexts
         /// <param name="modelBuilder">Parámetro necesario para configurar la tabla.</param>
         private void OnTableCreating_VideoGames(ModelBuilder modelBuilder)
         {
-            // TODO: ...
+            // Nombre de la tabla.
+            modelBuilder.Entity<VideoGame>().ToTable(DbTablesValues.VideoGames.TABLE_NAME);
+
+            // Clave primaria.
+            modelBuilder.Entity<VideoGame>().HasKey(x => x.Id);
+
+            // Claves foraneas.
+            modelBuilder.Entity<VideoGame>()
+                .HasOne(x => x.Platform)
+                .WithMany(x => x.VideoGames)
+                .HasForeignKey(x => x.PlatformId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Índices.
+            modelBuilder.Entity<VideoGame>().HasIndex(x => x.Id);
+            modelBuilder.Entity<VideoGame>().HasIndex(x => x.Name);
+            modelBuilder.Entity<VideoGame>().HasIndex(x => x.Price);
+            modelBuilder.Entity<VideoGame>().HasIndex(x => x.Score);
+            modelBuilder.Entity<VideoGame>().HasIndex(x => x.ReleaseDate);
+
+            // Mapeo de campos.
+            modelBuilder.Entity<VideoGame>()
+                .Property<int>(x => x.Id)
+                .HasColumnName(DbTablesValues.VideoGames.ID);
+            modelBuilder.Entity<VideoGame>()
+                .Property<string>(x => x.Name)
+                .HasColumnName(DbTablesValues.VideoGames.NAME)
+                .HasMaxLength(DbTablesValues.VideoGames.NAME_LENGTH)
+                .IsRequired(DbTablesValues.VideoGames.NAME_REQUIRED);
+            modelBuilder.Entity<VideoGame>()
+                .Property<string>(x => x.Description)
+                .HasColumnName(DbTablesValues.VideoGames.DESCRIPTION)
+                .IsRequired(DbTablesValues.VideoGames.DESCRIPTION_REQUIRED)
+                .HasColumnType(DbTablesValues.VideoGames.DESCRIPTION_TYPE);
+            modelBuilder.Entity<VideoGame>()
+                .Property<decimal>(x => x.Price)
+                .HasColumnName(DbTablesValues.VideoGames.PRICE)
+                .IsRequired(DbTablesValues.VideoGames.PRICE_REQUIRED)
+                .HasColumnType(DbTablesValues.VideoGames.PRICE_TYPE);
+            modelBuilder.Entity<VideoGame>()
+                .Property<decimal>(x => x.Score)
+                .HasColumnName(DbTablesValues.VideoGames.SCORE)
+                .IsRequired(DbTablesValues.VideoGames.SCORE_REQUIRED)
+                .HasColumnType(DbTablesValues.VideoGames.SCORE_TYPE);
+            modelBuilder.Entity<VideoGame>()
+                .Property<DateTime>(x => x.ReleaseDate)
+                .HasColumnName(DbTablesValues.VideoGames.RELEASE_DATE)
+                .IsRequired(DbTablesValues.VideoGames.RELEASE_DATE_REQUIRED);
+            modelBuilder.Entity<VideoGame>()
+                .Property<DateTime>(x => x.CreatedAt)
+                .HasColumnName(DbFieldsValues.AuditableFields.CREATED_AT)
+                .HasDefaultValueSql(DbFieldsValues.AuditableFields.CREATED_AT_DEFAULT_VALUE);
+            modelBuilder.Entity<VideoGame>()
+                .Property<DateTime>(x => x.UpdatedAt)
+                .HasColumnName(DbFieldsValues.AuditableFields.UPDATED_AT)
+                .HasDefaultValueSql(DbFieldsValues.AuditableFields.UPDATED_AT_DEFAULT_VALUE);
+            modelBuilder.Entity<VideoGame>()
+                .Property<int>(x => x.PlatformId)
+                .HasColumnName(DbTablesValues.VideoGames.PLATFORM)
+                .IsRequired(DbTablesValues.VideoGames.PLATFORM_REQUIRED);
         }
         #endregion
     }

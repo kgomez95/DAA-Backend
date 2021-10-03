@@ -61,5 +61,54 @@
             public const bool DEFAULT_TO_REQUIRED = true;
             public const bool DATATABLES_TABLES_REQUIRED = true;
         }
+
+        public class Platforms
+        {
+            public const string TABLE_NAME = "PLATFORMS";
+            public const string PREFIX = "PTS_";
+
+            public const string ID = Platforms.PREFIX + "Id";
+            public const string NAME = Platforms.PREFIX + "Name";
+            public const string COMPANY = Platforms.PREFIX + "Company";
+            public const string PRICE = Platforms.PREFIX + "Price";
+            public const string RELEASE_DATE = Platforms.PREFIX + "ReleaseDate";
+
+            public const int NAME_LENGTH = 250;
+            public const int COMPANY_LENGTH = 250;
+
+            public const bool NAME_REQUIRED = true;
+            public const bool COMPANY_REQUIRED = true;
+            public const bool PRICE_REQUIRED = true;
+            public const bool RELEASE_DATE_REQUIRED = true;
+
+            public const string PRICE_TYPE = "MONEY";
+        }
+
+        public class VideoGames
+        {
+            public const string TABLE_NAME = "VIDEO_GAMES";
+            public const string PREFIX = "VGS_";
+
+            public const string ID = VideoGames.PREFIX + "Id";
+            public const string NAME = VideoGames.PREFIX + "Name";
+            public const string DESCRIPTION = VideoGames.PREFIX + "Description";
+            public const string PRICE = VideoGames.PREFIX + "Price";
+            public const string SCORE = VideoGames.PREFIX + "Score";
+            public const string RELEASE_DATE = VideoGames.PREFIX + "ReleaseDate";
+            public const string PLATFORM = Platforms.ID;
+
+            public const int NAME_LENGTH = 250;
+
+            public const bool NAME_REQUIRED = true;
+            public const bool DESCRIPTION_REQUIRED = true;
+            public const bool PRICE_REQUIRED = true;
+            public const bool SCORE_REQUIRED = true;
+            public const bool RELEASE_DATE_REQUIRED = true;
+            public const bool PLATFORM_REQUIRED = true;
+
+            public const string DESCRIPTION_TYPE = "TEXT";
+            public const string PRICE_TYPE = "MONEY";
+            public const string SCORE_TYPE = "NUMERIC";
+        }
     }
 }
