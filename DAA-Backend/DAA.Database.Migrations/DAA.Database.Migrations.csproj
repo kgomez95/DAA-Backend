@@ -7,10 +7,19 @@
 
 	<ItemGroup>
 		<None Remove="Settings\databaseSettings.json" />
+		<None Remove="Settings\seedsSettings.json" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Include="Settings\seedsSettings.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
 		<Content Include="Settings\databaseSettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Include="Resources\*.csv">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 		</Content>
@@ -30,6 +39,10 @@
     <ProjectReference Include="..\DAA.Database.Models\DAA.Database.Models.csproj" />
     <ProjectReference Include="..\DAA.Database.ViewsModels\DAA.Database.ViewsModels.csproj" />
     <ProjectReference Include="..\DAA.Utils\DAA.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>
