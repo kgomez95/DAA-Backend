@@ -121,6 +121,10 @@ namespace DAA.Database.Migrations
                     Console.WriteLine("Ejecutando '{0}'...", table);
                     new PlatformsSeeder(this._seedsConfig).Execute(action);
                     break;
+                case "video_games":
+                    Console.WriteLine("Ejecutando '{0}'...", table);
+                    new VideoGamesSeeder(this._seedsConfig).Execute(action);
+                    break;
 
                 default:
                     executed = false;

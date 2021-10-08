@@ -1,3 +1,4 @@
 {
-  "PlatformsFile": "Platforms.csv"
+  "PlatformsFile": "Platforms.csv",
+  "VideoGamesFile": "VideoGames.csv"
 }

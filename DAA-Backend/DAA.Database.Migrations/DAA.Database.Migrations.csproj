@@ -6,6 +6,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\VideoGames.csv" />
 		<None Remove="Settings\databaseSettings.json" />
 		<None Remove="Settings\seedsSettings.json" />
 	</ItemGroup>
@@ -39,10 +40,6 @@
     <ProjectReference Include="..\DAA.Database.Models\DAA.Database.Models.csproj" />
     <ProjectReference Include="..\DAA.Database.ViewsModels\DAA.Database.ViewsModels.csproj" />
     <ProjectReference Include="..\DAA.Utils\DAA.Utils.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>
