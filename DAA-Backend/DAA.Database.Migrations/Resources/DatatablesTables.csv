@@ -1,0 +1,4 @@
+﻿Code;Name;Description;Reference
+DT_SCORE_GAMES;Puntuaciones;Muestra las puntuaciones de los videojuegos junto a sus plataformas.;VW_VIDEOGAMESCORE
+DT_VIDEOGAMES;Videojuegos;Muestra los videojuegos junto a sus plataformas.;VW_VIDEOGAMES
+DT_PLATFORMS;Plataformas;Muestra las plataformas disponibles.;VW_PLATFORMS

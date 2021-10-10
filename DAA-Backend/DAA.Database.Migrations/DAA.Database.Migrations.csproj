@@ -6,6 +6,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\DatatablesTables.csv" />
 		<None Remove="Resources\VideoGames.csv" />
 		<None Remove="Settings\databaseSettings.json" />
 		<None Remove="Settings\seedsSettings.json" />
