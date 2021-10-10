@@ -1,0 +1,15 @@
+﻿Code;Name;Type;Order;HasFilter;IsBasic;IsRange;DefaultValue;DefaultFrom;DefaultTo;DatatablesTableCode
+Id;#;2;1;False;False;False;;;;DT_SCORE_GAMES
+VideoGameName;Videojuego;1;2;True;True;False;;;;DT_SCORE_GAMES
+PlatformName;Plataforma;1;3;True;True;False;;;;DT_SCORE_GAMES
+Score;Puntuación;3;4;True;False;False;;;;DT_SCORE_GAMES
+VideoGameName;Videojuego;1;1;True;True;False;;;;DT_VIDEOGAMES
+VideoGameDescription;Descripción;1;2;True;True;False;;;;DT_VIDEOGAMES
+VideoGamePrice;Precio;4;3;True;False;True;;;;DT_VIDEOGAMES
+VideoGameReleaseDate;Fecha de lanzamiento;6;4;True;False;True;;;;DT_VIDEOGAMES
+PlatformName;Plataforma;1;5;True;True;False;;;;DT_VIDEOGAMES
+Id;#;2;1;False;False;False;;;;DT_PLATFORMS
+Name;Plataforma;1;2;True;True;False;;;;DT_PLATFORMS
+Company;Compañía;1;5;True;True;False;;;;DT_PLATFORMS
+Price;Precio;4;3;True;False;True;;;;DT_PLATFORMS
+ReleaseDate;Fecha de lanzamiento;6;4;True;False;True;;;;DT_PLATFORMS

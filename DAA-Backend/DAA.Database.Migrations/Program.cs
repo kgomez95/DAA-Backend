@@ -117,6 +117,10 @@ namespace DAA.Database.Migrations
             #region Seeders.
             switch (table)
             {
+                case "datatables_records":
+                    Console.WriteLine("Ejecutando '{0}'...", table);
+                    new DatatablesRecordsSeeder(this._seedsConfig).Execute(action);
+                    break;
                 case "datatables_tables":
                     Console.WriteLine("Ejecutando '{0}'...", table);
                     new DatatablesTablesSeeder(this._seedsConfig).Execute(action);

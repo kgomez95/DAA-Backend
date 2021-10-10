@@ -1,4 +1,5 @@
 {
+  "DatatablesRecordsFile": "DatatablesRecords.csv",
   "DatatablesTablesFile": "DatatablesTables.csv",
   "PlatformsFile": "Platforms.csv",
   "VideoGamesFile": "VideoGames.csv"
