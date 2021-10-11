@@ -1,7 +1,11 @@
-﻿using DAA.Database.Migrations.Contexts;
+﻿#region Usings.
+using DAA.Database.DAO.Definitions.Datatables;
+using DAA.Database.DAO.Interfaces.Datatables;
+using DAA.Database.Migrations.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+#endregion
 
 namespace DAA.API.ConfigurationServices
 {
@@ -61,6 +65,19 @@ namespace DAA.API.ConfigurationServices
                 options
                     .UseSqlServer(this.databaseSettings.GetSection("DAADbConnection").Value)
                 );
+            return this;
+        }
+
+        /// <summary>
+        /// Inicializa los DAO de la aplicación.
+        /// </summary>
+        /// <returns></returns>
+        public StartupServices DAO_Initialize()
+        {
+            this._services.AddScoped<IDatatablesTableDAO, DatatablesTableDAO>();
+            this._services.AddScoped<IDatatablesRecordDAO, DatatablesRecordDAO>();
+            // ...
+
             return this;
         }
         #endregion

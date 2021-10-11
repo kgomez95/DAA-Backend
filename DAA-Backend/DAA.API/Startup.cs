@@ -24,7 +24,8 @@ namespace DAA.API
         {
             new StartupServices(services)
                 .AddControllers()
-                .Database_InitializeContext();
+                .Database_InitializeContext()
+                .DAO_Initialize();
         }
 
         /// <summary>
