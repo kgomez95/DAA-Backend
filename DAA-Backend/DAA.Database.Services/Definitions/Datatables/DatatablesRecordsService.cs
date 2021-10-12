@@ -9,14 +9,12 @@ namespace DAA.Database.Services.Definitions.Datatables
     public class DatatablesRecordsService : IDatatablesRecordsService
     {
         #region Atributos privados.
-        private readonly IDatatablesTableDAO _datatablesTableDAO;
         private readonly IDatatablesRecordDAO _datatablesRecordDAO;
         #endregion
 
         #region Constructores.
-        public DatatablesRecordsService(IDatatablesTableDAO datatablesTableDAO, IDatatablesRecordDAO datatablesRecordDAO)
+        public DatatablesRecordsService(IDatatablesRecordDAO datatablesRecordDAO)
         {
-            this._datatablesTableDAO = datatablesTableDAO;
             this._datatablesRecordDAO = datatablesRecordDAO;
         }
         #endregion
@@ -31,11 +29,8 @@ namespace DAA.Database.Services.Definitions.Datatables
         {
             try
             {
-                // Cogemos el identificador del datatable.
-                int datatableId = this._datatablesTableDAO.GetIdFromCode(datatable);
-
                 // Cogemos los registros del DataTable.
-                DatatablesRecord[] datatablesRecords = this._datatablesRecordDAO.GetRecordsByTable(datatableId);
+                DatatablesRecord[] datatablesRecords = this._datatablesRecordDAO.GetRecordsByTable(datatable);
 
                 // Cogemos el listado con los nombres de la cabecera y los retornamos.
                 return datatablesRecords.Select(x => x.Name).ToArray();
@@ -55,11 +50,8 @@ namespace DAA.Database.Services.Definitions.Datatables
         {
             try
             {
-                // Cogemos el identificador del datatable.
-                int datatableId = this._datatablesTableDAO.GetIdFromCode(datatable);
-
                 // Cogemos los registros del DataTable y los retornamos.
-                return this._datatablesRecordDAO.GetRecordsByTable(datatableId);
+                return this._datatablesRecordDAO.GetRecordsByTable(datatable);
             }
             catch (Exception ex)
             {
