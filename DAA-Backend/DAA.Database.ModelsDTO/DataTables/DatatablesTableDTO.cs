@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DAA.Database.ModelsDTO.DataTables
 {
+    [Serializable]
     public class DatatablesTableDTO : BaseAuditableDTO
     {
         public string Code { get; set; }

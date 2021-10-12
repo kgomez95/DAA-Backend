@@ -1,5 +1,8 @@
-﻿namespace DAA.Database.ModelsDTO.DataTables
+﻿using System;
+
+namespace DAA.Database.ModelsDTO.DataTables
 {
+    [Serializable]
     public class DatatablesRecordDTO : BaseAuditableDTO
     {
         public string Code { get; set; }

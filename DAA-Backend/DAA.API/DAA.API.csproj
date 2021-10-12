@@ -11,6 +11,8 @@
   <ItemGroup>
     <ProjectReference Include="..\DAA.Database.DAO\DAA.Database.DAO.csproj" />
     <ProjectReference Include="..\DAA.Database.Migrations\DAA.Database.Migrations.csproj" />
+    <ProjectReference Include="..\DAA.Database.ServicesDTO\DAA.Database.ServicesDTO.csproj" />
+    <ProjectReference Include="..\DAA.Database.Services\DAA.Database.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

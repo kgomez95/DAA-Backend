@@ -3,6 +3,7 @@ using System;
 
 namespace DAA.Database.ModelsDTO.VideoGames
 {
+    [Serializable]
     public class VideoGameDTO : BaseAuditableDTO
     {
         public string Name { get; set; }

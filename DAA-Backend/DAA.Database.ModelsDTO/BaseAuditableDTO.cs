@@ -2,6 +2,7 @@
 
 namespace DAA.Database.ModelsDTO
 {
+    [Serializable]
     public class BaseAuditableDTO
     {
         public int Id { get; set; }

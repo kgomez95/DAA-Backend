@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace DAA.Database.ModelsDTO.Platforms
 {
+    [Serializable]
     public class PlatformDTO : BaseAuditableDTO
     {
         public string Name { get; set; }
