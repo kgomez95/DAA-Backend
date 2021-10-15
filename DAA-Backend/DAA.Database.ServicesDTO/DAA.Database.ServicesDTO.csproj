@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DAA.API.Models\DAA.API.Models.csproj" />
     <ProjectReference Include="..\DAA.Database.ModelsDTO\DAA.Database.ModelsDTO.csproj" />
     <ProjectReference Include="..\DAA.Database.Services\DAA.Database.Services.csproj" />
   </ItemGroup>

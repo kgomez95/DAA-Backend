@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.ViewsModels", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.DAO", "DAA.Database.DAO\DAA.Database.DAO.csproj", "{9EF5B082-3245-4018-B9FA-F6401D817D70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Database.Services", "DAA.Database.Services\DAA.Database.Services.csproj", "{BCE73802-A6DD-4C53-8427-FE4B508E7C80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.Services", "DAA.Database.Services\DAA.Database.Services.csproj", "{BCE73802-A6DD-4C53-8427-FE4B508E7C80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.Database.ServicesDTO", "DAA.Database.ServicesDTO\DAA.Database.ServicesDTO.csproj", "{ACA78344-1ABD-4C9F-8549-780A2005D92C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAA.Database.ServicesDTO", "DAA.Database.ServicesDTO\DAA.Database.ServicesDTO.csproj", "{ACA78344-1ABD-4C9F-8549-780A2005D92C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAA.API.Models", "DAA.API.Models\DAA.API.Models.csproj", "{D8E32FB5-7EDA-4DDA-A38E-3F4F5FEA2F68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{ACA78344-1ABD-4C9F-8549-780A2005D92C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACA78344-1ABD-4C9F-8549-780A2005D92C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACA78344-1ABD-4C9F-8549-780A2005D92C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8E32FB5-7EDA-4DDA-A38E-3F4F5FEA2F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8E32FB5-7EDA-4DDA-A38E-3F4F5FEA2F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8E32FB5-7EDA-4DDA-A38E-3F4F5FEA2F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8E32FB5-7EDA-4DDA-A38E-3F4F5FEA2F68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

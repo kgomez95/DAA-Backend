@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DAA.API.Models.Datatables;
 using DAA.Database.ModelsDTO.DataTables;
 using DAA.Database.Services.Interfaces.Datatables;
 using DAA.Database.ServicesDTO.Interfaces.Datatables;
@@ -32,6 +33,23 @@ namespace DAA.Database.ServicesDTO.Definitions.Datatables
             try
             {
                 return this._datatablesRecordsService.GetDataHeaders(datatable);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Coge los filtros de la tabla proporcionada.
+        /// </summary>
+        /// <param name="datatable">Tabla de donde coger los filtros.</param>
+        /// <returns>Retorna un objeto DataFilter con los filtros básicos y los filtros avanzados.</returns>
+        public DataFilter GetDataFilters(string datatable)
+        {
+            try
+            {
+                return this._datatablesRecordsService.GetDataFilters(datatable);
             }
             catch (Exception ex)
             {

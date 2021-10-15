@@ -34,6 +34,19 @@ namespace DAA.API.Controllers
             }
         }
 
+        [HttpGet("DataFilter")]
+        public IActionResult DataFilter(string datatable)
+        {
+            try
+            {
+                return Ok(this._datatablesRecordsServiceDTO.GetDataFilters(datatable));
+            }
+            catch (Exception ex)
+            {
+                return base.StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet("GetRecords")]
         public IActionResult GetRecords(string datatable)
         {
