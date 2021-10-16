@@ -1,6 +1,7 @@
 ﻿using DAA.API.Models.Datatables;
 using DAA.API.Models.Datatables.Filters;
 using DAA.Database.DAO.Interfaces.Datatables;
+using DAA.Database.DAO.Models;
 using DAA.Database.Models.DataTables;
 using DAA.Database.Services.Interfaces.Datatables;
 using DAA.Utils.Conversions;
@@ -13,12 +14,19 @@ namespace DAA.Database.Services.Definitions.Datatables
     {
         #region Atributos privados.
         private readonly IDatatablesRecordDAO _datatablesRecordDAO;
+        private readonly IDatatablesTableDAO _datatablesTableDAO;
+        private readonly IDatatablesViewsDAO _datatablesViewsDAO;
         #endregion
 
         #region Constructores.
-        public DatatablesRecordsService(IDatatablesRecordDAO datatablesRecordDAO)
+        public DatatablesRecordsService(
+            IDatatablesRecordDAO datatablesRecordDAO, 
+            IDatatablesTableDAO datatablesTableDAO, 
+            IDatatablesViewsDAO datatablesViewsDAO)
         {
             this._datatablesRecordDAO = datatablesRecordDAO;
+            this._datatablesTableDAO = datatablesTableDAO;
+            this._datatablesViewsDAO = datatablesViewsDAO;
         }
         #endregion
 
@@ -98,6 +106,34 @@ namespace DAA.Database.Services.Definitions.Datatables
 
                 // Retornamos los filtros.
                 return dataFilter;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Coge los datos de la vista del DataTable especificado.
+        /// </summary>
+        /// <param name="datatable">Código del DataTable de donde coger los datos.</param>
+        /// <param name="dataFilter">Filtros a aplicar en la búsqueda de los datos.</param>
+        /// <param name="offset">Posición desde donde se buscarán los próximos datos.</param>
+        /// <param name="limit">Cantidad de datos a buscar.</param>
+        /// <param name="dataSort">Ordenación de los datos.</param>
+        /// <returns></returns>
+        public DataView GetDataView(string datatable, DataFilter dataFilter, int offset, int limit, DataSort dataSort)
+        {
+            try
+            {
+                DatatablesTable datatablesTable = this._datatablesTableDAO.GetFromCode(datatable);
+                DatatablesRecord[] datatablesRecords = this._datatablesRecordDAO.GetRecordsByTable(datatablesTable.Id);
+
+                DataView dataView = this._datatablesViewsDAO.RecoverDataView(datatablesTable.Reference, dataFilter, offset, limit, dataSort, datatablesRecords);
+
+                // TODO: Cambiar el tipo de dato a devolver (se tiene que devolver los registros, las acciones que se pueden realizar en la tabla, el total de páginas y el total de datos).
+
+                return dataView;
             }
             catch (Exception ex)
             {

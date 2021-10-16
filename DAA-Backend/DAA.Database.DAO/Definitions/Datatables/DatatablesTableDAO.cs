@@ -27,5 +27,22 @@ namespace DAA.Database.DAO.Definitions.Datatables
 
             return datatablesTable.Id;
         }
+
+        /// <summary>
+        /// Busca el DataTable que coincida con el código especificado.
+        /// </summary>
+        /// <param name="code">Código del DataTable a buscar.</param>
+        /// <returns>Retorna el DataTable.</returns>
+        public DatatablesTable GetFromCode(string code)
+        {
+            DatatablesTable datatablesTable = base._context.DatatablesTables.FirstOrDefault(x => x.Code == code);
+
+            if (datatablesTable == null)
+            {
+                throw new Exception(string.Format("El DataTable con código '{0}' no existe.", code));
+            }
+
+            return datatablesTable;
+        }
     }
 }

@@ -82,8 +82,9 @@ namespace DAA.API.ConfigurationServices
         {
             this._services.AddScoped<IDatatablesTableDAO, DatatablesTableDAO>();
             this._services.AddScoped<IDatatablesRecordDAO, DatatablesRecordDAO>();
+            this._services.AddScoped<IDatatablesViewsDAO, DatatablesViewsDAO>();
             // NOTE: Ir añadiendo aquí los nuevos DAO.
-
+            
             return this;
         }
 

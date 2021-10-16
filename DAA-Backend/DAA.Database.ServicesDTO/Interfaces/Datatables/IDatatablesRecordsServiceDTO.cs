@@ -1,4 +1,5 @@
 ﻿using DAA.API.Models.Datatables;
+using DAA.Database.DAO.Models;
 using DAA.Database.ModelsDTO.DataTables;
 
 namespace DAA.Database.ServicesDTO.Interfaces.Datatables
@@ -18,6 +19,17 @@ namespace DAA.Database.ServicesDTO.Interfaces.Datatables
         /// <param name="datatable">Tabla de donde coger los filtros.</param>
         /// <returns>Retorna un objeto DataFilter con los filtros básicos y los filtros avanzados.</returns>
         DataFilter GetDataFilters(string datatable);
+
+        /// <summary>
+        /// Coge los datos de la vista del DataTable especificado.
+        /// </summary>
+        /// <param name="datatable">Código del DataTable de donde coger los datos.</param>
+        /// <param name="dataFilter">Filtros a aplicar en la búsqueda de los datos.</param>
+        /// <param name="offset">Posición desde donde se buscarán los próximos datos.</param>
+        /// <param name="limit">Cantidad de datos a buscar.</param>
+        /// <param name="dataSort">Ordenación de los datos.</param>
+        /// <returns></returns>
+        DataView GetDataView(string datatable, DataFilter dataFilter, int offset, int limit, DataSort dataSort);
 
         /// <summary>
         /// Coge todos los registros de la tabla proporcionada.

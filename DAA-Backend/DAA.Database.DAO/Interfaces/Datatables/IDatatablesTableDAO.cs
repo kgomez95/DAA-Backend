@@ -1,4 +1,6 @@
-﻿namespace DAA.Database.DAO.Interfaces.Datatables
+﻿using DAA.Database.Models.DataTables;
+
+namespace DAA.Database.DAO.Interfaces.Datatables
 {
     public interface IDatatablesTableDAO
     {
@@ -8,5 +10,12 @@
         /// <param name="code">Código del DataTable a buscar.</param>
         /// <returns>Retorna el identificador del DataTable.</returns>
         int GetIdFromCode(string code);
+
+        /// <summary>
+        /// Busca el DataTable que coincida con el código especificado.
+        /// </summary>
+        /// <param name="code">Código del DataTable a buscar.</param>
+        /// <returns>Retorna el DataTable.</returns>
+        DatatablesTable GetFromCode(string code);
     }
 }
