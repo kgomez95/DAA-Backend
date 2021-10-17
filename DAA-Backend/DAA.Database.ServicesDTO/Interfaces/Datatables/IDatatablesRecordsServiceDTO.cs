@@ -1,5 +1,5 @@
-﻿using DAA.API.Models.Datatables;
-using DAA.Database.DAO.Models;
+﻿using DAA.API.Models.ApiRest;
+using DAA.API.Models.Datatables;
 using DAA.Database.ModelsDTO.DataTables;
 
 namespace DAA.Database.ServicesDTO.Interfaces.Datatables
@@ -28,8 +28,8 @@ namespace DAA.Database.ServicesDTO.Interfaces.Datatables
         /// <param name="offset">Posición desde donde se buscarán los próximos datos.</param>
         /// <param name="limit">Cantidad de datos a buscar.</param>
         /// <param name="dataSort">Ordenación de los datos.</param>
-        /// <returns></returns>
-        DataView GetDataView(string datatable, DataFilter dataFilter, int offset, int limit, DataSort dataSort);
+        /// <returns>Retorna un objeto ApiResponse con los datos de la vista.</returns>
+        ApiResponse<DataRecord> GetDataView(string datatable, DataFilter dataFilter, int offset, int limit, DataSort dataSort);
 
         /// <summary>
         /// Coge todos los registros de la tabla proporcionada.

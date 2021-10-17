@@ -33,8 +33,20 @@ namespace DAA.Database.DAO.Definitions.Datatables
         {
             DataView dataView = new DataView();
 
-            // TODO: Realizar un COUNT de los datos que se van a recuperar para poder devolver el total de registros encontrados.
+            // Cogemos el total de registros.
+            using (DbCommand command = this.CreateCommand(view, dataFilter, offset, limit, dataSort, records, true))
+            {
+                base._context.Database.OpenConnection();
+                using (DbDataReader result = command.ExecuteReader())
+                {
+                    result.Read();
+                    dataView.TotalRecords = result.GetInt32(0);
+                }
+                base._context.Database.CloseConnection();
+                command.Dispose();
+            }
 
+            // Cogemos los registros.
             using (DbCommand command = this.CreateCommand(view, dataFilter, offset, limit, dataSort, records, false))
             {
                 base._context.Database.OpenConnection();
@@ -74,8 +86,6 @@ namespace DAA.Database.DAO.Definitions.Datatables
         /// <returns>Retorna el comando de base de datos inicializado y listo para ser ejecutado.</returns>
         private DbCommand CreateCommand(string view, DataFilter dataFilter, int? offset, int? limit, DataSort dataSort, DatatablesRecord[] records, bool isCount)
         {
-            // TODO: Optimizar esta función.
-
             DbCommand command = base._context.Database.GetDbConnection().CreateCommand();
             IList<DbParameter> parameters = new List<DbParameter>();
             string query = "SELECT ";
@@ -92,13 +102,86 @@ namespace DAA.Database.DAO.Definitions.Datatables
             // Añadimos la vista.
             query += $"FROM {view} ";
 
-            // Añadimos los filtros.
+            #region Filtros.
+            // Añadimos los filtros solamente si tienen datos para filtrar.
             if (dataFilter.HasFiltersWithData())
             {
                 query += "WHERE ";
 
                 // Filtros básicos.
-                string basicFilter = string.Empty;
+                this.AddBasicFilters(command, dataFilter, ref parameters, ref query);
+
+                // Filtros avanzados.
+                this.AddAdvancedFilters(command, dataFilter, ref parameters, ref query);
+
+                // NOTE: Quitamos el último "AND".
+                query = query.Substring(0, query.Length - 4);
+            }
+            #endregion
+
+            // NOTE: La ordenación y el offset y el limit solamente los añadimos si la consulta no es de tipo "count".
+            if (!isCount)
+            {
+                #region Ordenación.
+                // Añadimos la ordenación.
+                if (dataSort.HasSortField() && records.FirstOrDefault(x => x.Code.Equals(dataSort.Field, StringComparison.InvariantCultureIgnoreCase)) != null)
+                {
+                    // NOTE: Como no se puede añadir el campo como si fuese un parametro (es decir, que obliga a concatenarlo), realizamos una búsqueda del "dataSort.Field"
+                    //       para comprobar que dicho campo realmente existe en la tabla, es por eso que en la condición de arriba buscamos el valor de esta variable en el listado
+                    //       "records" (para evitar que nos hagan injección de código).
+                    query += $"ORDER BY {dataSort.Field} ";
+
+                    if (dataSort.Asc)
+                    {
+                        query += "ASC ";
+                    }
+                    else
+                    {
+                        query += "DESC ";
+                    }
+                }
+                else
+                {
+                    // NOTE: En caso de que no haya un campo de ordenación le tenemos que poner una ordenación por defecto.
+                    query += $"ORDER BY 1 DESC ";
+                }
+                #endregion
+
+                // Añadimos el offset y el limit para paginar solamente cuando tengamos sus valores.
+                if (offset.HasValue && limit.HasValue)
+                {
+                    // NOTE: Para usar el Offset y el Fetch es obligatorio poner un "Order By" para que esto funcione.
+                    query += "OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY ";
+                    parameters.Add(this.CreateParameter("Offset", offset.Value, command));
+                    parameters.Add(this.CreateParameter("Limit", limit.Value, command));
+                }
+            }
+
+            // Añadimos la query al comando.
+            command.CommandText = query;
+
+            // Añadimos los parámetros al comando.
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                command.Parameters.Add(parameters[i]);
+            }
+
+            return command;
+        }
+
+        /// <summary>
+        /// Añade los filtros básicos a la query proporcionada.
+        /// </summary>
+        /// <param name="command">Comando de base de datos a construir.</param>
+        /// <param name="dataFilter">Filtros a realizar en la búsqueda de los datos.</param>
+        /// <param name="parameters">Parámetros a añadir en la query.</param>
+        /// <param name="query">Consulta sql donde añadir los filtros básicos.</param>
+        private void AddBasicFilters(DbCommand command, DataFilter dataFilter, ref IList<DbParameter> parameters, ref string query)
+        {
+            string basicFilter = string.Empty;
+
+            if (dataFilter.HasFilterBasicWithData())
+            {
                 for (int i = 0; i < dataFilter.Basic.Count; i++)
                 {
                     if (!string.IsNullOrEmpty(dataFilter.Basic[i].Value))
@@ -110,16 +193,28 @@ namespace DAA.Database.DAO.Definitions.Datatables
                         parameters.Add(this.CreateParameter(dataFilter.Basic[i].Code, dataFilter.Basic[i].Value, command));
                     }
                 }
+            }
 
-                if (!string.IsNullOrEmpty(basicFilter))
-                {
-                    // NOTE: Quitamos el último "OR".
-                    basicFilter = basicFilter.Substring(0, basicFilter.Length - 4);
+            if (!string.IsNullOrEmpty(basicFilter))
+            {
+                // NOTE: Quitamos el último "OR".
+                basicFilter = basicFilter.Substring(0, basicFilter.Length - 4);
 
-                    query += $"({basicFilter}) AND ";
-                }
+                query += $"({basicFilter}) AND ";
+            }
+        }
 
-                // Filtros avanzados.
+        /// <summary>
+        /// Añade los filtros avanzados a la query proporcionada.
+        /// </summary>
+        /// <param name="command">Comando de base de datos a construir.</param>
+        /// <param name="dataFilter">Filtros a realizar en la búsqueda de los datos.</param>
+        /// <param name="parameters">Parámetros a añadir en la query.</param>
+        /// <param name="query">Consulta sql donde añadir los filtros avanzados.</param>
+        private void AddAdvancedFilters(DbCommand command, DataFilter dataFilter, ref IList<DbParameter> parameters, ref string query)
+        {
+            if (dataFilter.HasFilterAdvancedWithData())
+            {
                 for (int i = 0; i < dataFilter.Advanced.Count; i++)
                 {
                     if (!string.IsNullOrEmpty(dataFilter.Advanced[i].Value)
@@ -152,48 +247,7 @@ namespace DAA.Database.DAO.Definitions.Datatables
                         }
                     }
                 }
-
-                // NOTE: Quitamos el último "AND".
-                query = query.Substring(0, query.Length - 4);
             }
-
-            // Añadimos la ordenación.
-            if (dataSort.HasSortField() && records.FirstOrDefault(x => x.Code.Equals(dataSort.Field, StringComparison.InvariantCultureIgnoreCase)) != null)
-            {
-                query += $"ORDER BY {dataSort.Field} ";
-
-                if (dataSort.Asc)
-                {
-                    query += "ASC ";
-                }
-                else
-                {
-                    query += "DESC ";
-                }
-            }
-            else
-            {
-                query += $"ORDER BY 1 DESC ";
-            }
-
-            // Añadimos el offset y el limit para paginar.
-            if (offset.HasValue && limit.HasValue)
-            {
-                query += "OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY ";
-                parameters.Add(this.CreateParameter("Offset", offset.Value, command));
-                parameters.Add(this.CreateParameter("Limit", limit.Value, command));
-            }
-
-            // Añadimos la query al comando.
-            command.CommandText = query;
-
-            // Añadimos los parámetros al comando.
-            for (int i = 0; i < parameters.Count; i++)
-            {
-                command.Parameters.Add(parameters[i]);
-            }
-
-            return command;
         }
 
         /// <summary>

@@ -1,11 +1,14 @@
-﻿using DAA.API.Models.Datatables;
+﻿using DAA.API.Models.ApiRest;
+using DAA.API.Models.Datatables;
 using DAA.API.Models.Datatables.Filters;
+using DAA.API.Models.Datatables.Records;
 using DAA.Database.DAO.Interfaces.Datatables;
 using DAA.Database.DAO.Models;
 using DAA.Database.Models.DataTables;
 using DAA.Database.Services.Interfaces.Datatables;
 using DAA.Utils.Conversions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DAA.Database.Services.Definitions.Datatables
@@ -121,19 +124,54 @@ namespace DAA.Database.Services.Definitions.Datatables
         /// <param name="offset">Posición desde donde se buscarán los próximos datos.</param>
         /// <param name="limit">Cantidad de datos a buscar.</param>
         /// <param name="dataSort">Ordenación de los datos.</param>
-        /// <returns></returns>
-        public DataView GetDataView(string datatable, DataFilter dataFilter, int offset, int limit, DataSort dataSort)
+        /// <returns>Retorna un objeto ApiResponse con los datos de la vista.</returns>
+        public ApiResponse<DataRecord> GetDataView(string datatable, DataFilter dataFilter, int offset, int limit, DataSort dataSort)
         {
             try
             {
+                // Creamos los datos de la respuesta.
+                ApiResponse<DataRecord> response = new ApiResponse<DataRecord>();
+                response.Data = new DataRecord();
+
+                // Recogemos los datos de la vista.
                 DatatablesTable datatablesTable = this._datatablesTableDAO.GetFromCode(datatable);
                 DatatablesRecord[] datatablesRecords = this._datatablesRecordDAO.GetRecordsByTable(datatablesTable.Id);
 
+                // Recogemos los valores de la vista.
                 DataView dataView = this._datatablesViewsDAO.RecoverDataView(datatablesTable.Reference, dataFilter, offset, limit, dataSort, datatablesRecords);
 
-                // TODO: Cambiar el tipo de dato a devolver (se tiene que devolver los registros, las acciones que se pueden realizar en la tabla, el total de páginas y el total de datos).
+                // Construimos la respuesta.
+                foreach (Dictionary<string, object> data in dataView.Data)
+                {
+                    IList<Record> records = new List<Record>();
 
-                return dataView;
+                    foreach (KeyValuePair<string, object> record in data)
+                    {
+                        records.Add(new Record()
+                        {
+                            Code = record.Key,
+                            Value = record.Value,
+                            Type = ConstantsConversion.ConvertType(datatablesRecords.First(x => x.Code.Equals(record.Key, StringComparison.InvariantCultureIgnoreCase)).Type)
+                        });
+                    }
+
+                    response.Data.Records.Add(records);
+                }
+
+                // Asignamos el total de registros y calculamos el total de páginas.
+                response.TotalRecords = dataView.TotalRecords;
+                response.TotalPages = Convert.ToInt32(Math.Ceiling((decimal)dataView.TotalRecords / (decimal)limit));
+
+                // TODO: Recoger de forma correcta las acciones de la vista.
+                response.Data.Actions = new 
+                {
+                    Create = true,
+                    Delete = true,
+                    Update = true,
+                    View = true
+                };
+
+                return response;
             }
             catch (Exception ex)
             {
