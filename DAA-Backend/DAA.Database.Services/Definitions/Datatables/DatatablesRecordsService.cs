@@ -130,8 +130,10 @@ namespace DAA.Database.Services.Definitions.Datatables
             try
             {
                 // Creamos los datos de la respuesta.
-                ApiResponse<DataRecord> response = new ApiResponse<DataRecord>();
-                response.Data = new DataRecord();
+                ApiResponse<DataRecord> response = new ApiResponse<DataRecord>()
+                {
+                    Data = new DataRecord()
+                };
 
                 // Recogemos los datos de la vista.
                 DatatablesTable datatablesTable = this._datatablesTableDAO.GetFromCode(datatable);

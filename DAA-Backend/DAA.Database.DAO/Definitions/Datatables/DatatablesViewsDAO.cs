@@ -104,7 +104,7 @@ namespace DAA.Database.DAO.Definitions.Datatables
 
             #region Filtros.
             // Añadimos los filtros solamente si tienen datos para filtrar.
-            if (dataFilter.HasFiltersWithData())
+            if (dataFilter != null && dataFilter.HasFiltersWithData())
             {
                 query += "WHERE ";
 
@@ -115,7 +115,7 @@ namespace DAA.Database.DAO.Definitions.Datatables
                 this.AddAdvancedFilters(command, dataFilter, ref parameters, ref query);
 
                 // NOTE: Quitamos el último "AND".
-                query = query.Substring(0, query.Length - 4);
+                query = query[0..^4];
             }
             #endregion
 
@@ -124,7 +124,7 @@ namespace DAA.Database.DAO.Definitions.Datatables
             {
                 #region Ordenación.
                 // Añadimos la ordenación.
-                if (dataSort.HasSortField() && records.FirstOrDefault(x => x.Code.Equals(dataSort.Field, StringComparison.InvariantCultureIgnoreCase)) != null)
+                if (dataSort != null && dataSort.HasSortField() && records.FirstOrDefault(x => x.Code.Equals(dataSort.Field, StringComparison.InvariantCultureIgnoreCase)) != null)
                 {
                     // NOTE: Como no se puede añadir el campo como si fuese un parametro (es decir, que obliga a concatenarlo), realizamos una búsqueda del "dataSort.Field"
                     //       para comprobar que dicho campo realmente existe en la tabla, es por eso que en la condición de arriba buscamos el valor de esta variable en el listado
@@ -198,7 +198,8 @@ namespace DAA.Database.DAO.Definitions.Datatables
             if (!string.IsNullOrEmpty(basicFilter))
             {
                 // NOTE: Quitamos el último "OR".
-                basicFilter = basicFilter.Substring(0, basicFilter.Length - 4);
+                basicFilter = basicFilter[0..^4];
+                //NOTE: La instrucción anterior es como hacer: basicFilter.Substring(0, basicFilter.Length - 4);
 
                 query += $"({basicFilter}) AND ";
             }
