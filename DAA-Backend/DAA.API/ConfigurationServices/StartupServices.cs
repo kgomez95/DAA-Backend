@@ -1,6 +1,7 @@
 ﻿#region Usings.
 using AutoMapper;
 using DAA.API.Mappings;
+using DAA.Constants.Api;
 using DAA.Database.DAO.Definitions.Datatables;
 using DAA.Database.DAO.Interfaces.Datatables;
 using DAA.Database.Migrations.Contexts;
@@ -126,6 +127,34 @@ namespace DAA.API.ConfigurationServices
             IMapper mapper = mappingConfig.CreateMapper();
             this._services.AddSingleton(mapper);
 
+            return this;
+        }
+
+        /// <summary>
+        /// Añade las CORS en la aplicación.
+        /// </summary>
+        /// <returns></returns>
+        public StartupServices AddCors()
+        {
+            this._services.AddCors(options =>
+            {
+                options.AddPolicy(ConfigValues.CORS_CODE,
+                builder =>
+                {
+                    // NOTE: Para este proyecto permitiremos que nos realicen peticiones desde cualquier origen, pero es
+                    //       muy aconsejable limitar las peticiones a una serie de determinadas urls (por ejemplo, permitir
+                    //       que solamente puedan hacer peticiones a esta API las llamadas procedentes de nuestra aplicación
+                    //       frontend, la cual puede estar alojada en "miejemplo.es:80").
+                    //       También es interesante realizar limitaciones con las cabeceras y los verbos de las peticiones a
+                    //       ejecutar.
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .WithHeaders(new string[] {
+                            "Accept",
+                            "Content-Type"
+                        });
+                });
+            });
             return this;
         }
         #endregion

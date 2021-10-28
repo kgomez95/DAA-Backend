@@ -1,4 +1,5 @@
 using DAA.API.ConfigurationServices;
+using DAA.Constants.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +29,8 @@ namespace DAA.API
                 .Database_InitializeContext()
                 .DAO_Initialize()
                 .DatabaseServices_Initialize()
-                .DatabaseServicesDTO_Initialize();
+                .DatabaseServicesDTO_Initialize()
+                .AddCors();
         }
 
         /// <summary>
@@ -46,6 +48,7 @@ namespace DAA.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(ConfigValues.CORS_CODE);
 
             app.UseAuthorization();
 
