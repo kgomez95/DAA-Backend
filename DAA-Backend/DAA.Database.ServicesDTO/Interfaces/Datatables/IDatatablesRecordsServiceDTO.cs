@@ -11,7 +11,7 @@ namespace DAA.Database.ServicesDTO.Interfaces.Datatables
         /// </summary>
         /// <param name="datatable">Tabla de donde coger las cabeceras.</param>
         /// <returns>Retorna un listado con las cabeceras.</returns>
-        string[] GetDataHeaders(string datatable);
+        DataHeader[] GetDataHeaders(string datatable);
 
         /// <summary>
         /// Coge los filtros de la tabla proporcionada.

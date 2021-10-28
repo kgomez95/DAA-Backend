@@ -39,7 +39,7 @@ namespace DAA.Database.Services.Definitions.Datatables
         /// </summary>
         /// <param name="datatable">Tabla de donde coger las cabeceras.</param>
         /// <returns>Retorna un listado con las cabeceras.</returns>
-        public string[] GetDataHeaders(string datatable)
+        public DataHeader[] GetDataHeaders(string datatable)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace DAA.Database.Services.Definitions.Datatables
                 DatatablesRecord[] datatablesRecords = this._datatablesRecordDAO.GetRecordsByTable(datatable);
 
                 // Cogemos el listado con los nombres de la cabecera y los retornamos.
-                return datatablesRecords.Select(x => x.Name).ToArray();
+                return datatablesRecords.Select(x => new DataHeader(x.Code, x.Name)).ToArray();
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace DAA.Database.Services.Definitions.Datatables
                 response.TotalRecords = dataView.TotalRecords;
                 response.TotalPages = Convert.ToInt32(Math.Ceiling((decimal)dataView.TotalRecords / (decimal)limit));
 
-                // TODO: Recoger de forma correcta las acciones de la vista.
+                // TODO: Recoger de forma correcta las acciones de la vista. 
                 response.Data.Actions = new 
                 {
                     Create = true,

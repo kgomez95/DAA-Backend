@@ -29,7 +29,7 @@ namespace DAA.Database.ServicesDTO.Definitions.Datatables
         /// </summary>
         /// <param name="datatable">Tabla de donde coger las cabeceras.</param>
         /// <returns>Retorna un listado con las cabeceras.</returns>
-        public string[] GetDataHeaders(string datatable)
+        public DataHeader[] GetDataHeaders(string datatable)
         {
             try
             {
