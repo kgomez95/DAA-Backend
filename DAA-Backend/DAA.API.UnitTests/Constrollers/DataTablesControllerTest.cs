@@ -9,7 +9,7 @@ namespace DAA.API.UnitTests.Constrollers
 {
     public class DataTablesControllerTest
     {
-        private readonly string BaseUrl = "http://localhost:50000";
+        private readonly string BaseUrl = "http://localhost:50000/api/datatables";
 
         [SetUp]
         public void Setup()
@@ -20,13 +20,13 @@ namespace DAA.API.UnitTests.Constrollers
         [Test]
         public void DataHeader_Scores_200()
         {
-            string[] headers = null;
+            DataHeader[] headers = null;
 
             try
             {
                 WebClient client = new WebClient();
-                string result = client.DownloadString(string.Format("{0}/api/datatables/dataHeader?datatable=DT_SCORE_GAMES", this.BaseUrl));
-                headers = result.FromJson<string[]>();
+                string result = client.DownloadString(string.Format("{0}/dataHeader?datatable=DT_SCORE_GAMES", this.BaseUrl));
+                headers = result.FromJson<DataHeader[]>();
             }
             catch (Exception ex)
             {
@@ -34,18 +34,19 @@ namespace DAA.API.UnitTests.Constrollers
             }
 
             Assert.IsNotNull(headers);
+            Assert.IsNotEmpty(headers);
         }
 
         [Test]
         public void DataHeader_VideoGames_200()
         {
-            string[] headers = null;
+            DataHeader[] headers = null;
 
             try
             {
                 WebClient client = new WebClient();
-                string result = client.DownloadString(string.Format("{0}/api/datatables/dataHeader?datatable=DT_VIDEOGAMES", this.BaseUrl));
-                headers = result.FromJson<string[]>();
+                string result = client.DownloadString(string.Format("{0}/dataHeader?datatable=DT_VIDEOGAMES", this.BaseUrl));
+                headers = result.FromJson<DataHeader[]>();
             }
             catch (Exception ex)
             {
@@ -53,18 +54,19 @@ namespace DAA.API.UnitTests.Constrollers
             }
 
             Assert.IsNotNull(headers);
+            Assert.IsNotEmpty(headers);
         }
 
         [Test]
         public void DataHeader_Platforms_200()
         {
-            string[] headers = null;
+            DataHeader[] headers = null;
 
             try
             {
                 WebClient client = new WebClient();
-                string result = client.DownloadString(string.Format("{0}/api/datatables/dataHeader?datatable=DT_PLATFORMS", this.BaseUrl));
-                headers = result.FromJson<string[]>();
+                string result = client.DownloadString(string.Format("{0}/dataHeader?datatable=DT_PLATFORMS", this.BaseUrl));
+                headers = result.FromJson<DataHeader[]>();
             }
             catch (Exception ex)
             {
@@ -72,24 +74,26 @@ namespace DAA.API.UnitTests.Constrollers
             }
 
             Assert.IsNotNull(headers);
+            Assert.IsNotEmpty(headers);
         }
 
         [Test]
         public void DataHeader_Empty()
         {
-            string[] headers = null;
+            DataHeader[] headers = null;
 
             try
             {
                 WebClient client = new WebClient();
-                string result = client.DownloadString(string.Format("{0}/api/datatables/dataHeader?datatable=CualquierCosa", this.BaseUrl));
-                headers = result.FromJson<string[]>();
+                string result = client.DownloadString(string.Format("{0}/dataHeader?datatable=CualquierCosa", this.BaseUrl));
+                headers = result.FromJson<DataHeader[]>();
             }
             catch (Exception ex)
             {
                 headers = null;
             }
 
+            Assert.IsNotNull(headers);
             Assert.IsEmpty(headers);
         }
         #endregion
@@ -103,7 +107,7 @@ namespace DAA.API.UnitTests.Constrollers
             try
             {
                 WebClient client = new WebClient();
-                string result = client.DownloadString(string.Format("{0}/api/datatables/dataFilter?datatable=DT_SCORE_GAMES", this.BaseUrl));
+                string result = client.DownloadString(string.Format("{0}/dataFilter?datatable=DT_SCORE_GAMES", this.BaseUrl));
                 filters = result.FromJson<DataFilter>();
             }
             catch (Exception ex)
@@ -124,7 +128,7 @@ namespace DAA.API.UnitTests.Constrollers
             try
             {
                 WebClient client = new WebClient();
-                string result = client.DownloadString(string.Format("{0}/api/datatables/dataFilter?datatable=DT_VIDEOGAMES", this.BaseUrl));
+                string result = client.DownloadString(string.Format("{0}/dataFilter?datatable=DT_VIDEOGAMES", this.BaseUrl));
                 filters = result.FromJson<DataFilter>();
             }
             catch (Exception ex)
@@ -145,7 +149,7 @@ namespace DAA.API.UnitTests.Constrollers
             try
             {
                 WebClient client = new WebClient();
-                string result = client.DownloadString(string.Format("{0}/api/datatables/dataFilter?datatable=DT_PLATFORMS", this.BaseUrl));
+                string result = client.DownloadString(string.Format("{0}/dataFilter?datatable=DT_PLATFORMS", this.BaseUrl));
                 filters = result.FromJson<DataFilter>();
             }
             catch (Exception ex)
@@ -166,7 +170,7 @@ namespace DAA.API.UnitTests.Constrollers
             try
             {
                 WebClient client = new WebClient();
-                string result = client.DownloadString(string.Format("{0}/api/datatables/dataFilter?datatable=CualquierCosa", this.BaseUrl));
+                string result = client.DownloadString(string.Format("{0}/dataFilter?datatable=CualquierCosa", this.BaseUrl));
                 filters = result.FromJson<DataFilter>();
             }
             catch (Exception ex)
@@ -188,7 +192,7 @@ namespace DAA.API.UnitTests.Constrollers
             {
                 // Recuperemos los filtros.
                 WebClient clientFilter = new WebClient();
-                string resultFilter = clientFilter.DownloadString(string.Format("{0}/api/datatables/dataFilter?datatable=DT_SCORE_GAMES", this.BaseUrl));
+                string resultFilter = clientFilter.DownloadString(string.Format("{0}/dataFilter?datatable=DT_SCORE_GAMES", this.BaseUrl));
                 DataFilter filters = resultFilter.FromJson<DataFilter>();
 
                 // Creamos la petición.
@@ -209,7 +213,7 @@ namespace DAA.API.UnitTests.Constrollers
                 // Recuperamos los datos del DataTable.
                 WebClient client = new WebClient();
                 client.Headers.Add("Content-Type", "application/json");
-                string result = client.UploadString(string.Format("{0}/api/datatables/dataView", this.BaseUrl), request.ToJson());
+                string result = client.UploadString(string.Format("{0}/dataView", this.BaseUrl), request.ToJson());
                 dataView = result.FromJson<ApiResponse<DataRecord>>();
             }
             catch (Exception ex)
@@ -233,7 +237,7 @@ namespace DAA.API.UnitTests.Constrollers
             {
                 // Recuperemos los filtros.
                 WebClient clientFilter = new WebClient();
-                string resultFilter = clientFilter.DownloadString(string.Format("{0}/api/datatables/dataFilter?datatable=DT_VIDEOGAMES", this.BaseUrl));
+                string resultFilter = clientFilter.DownloadString(string.Format("{0}/dataFilter?datatable=DT_VIDEOGAMES", this.BaseUrl));
                 DataFilter filters = resultFilter.FromJson<DataFilter>();
 
                 // Creamos la petición.
@@ -260,7 +264,7 @@ namespace DAA.API.UnitTests.Constrollers
                 // Recuperamos los datos del DataTable.
                 WebClient client = new WebClient();
                 client.Headers.Add("Content-Type", "application/json");
-                string result = client.UploadString(string.Format("{0}/api/datatables/dataView", this.BaseUrl), request.ToJson());
+                string result = client.UploadString(string.Format("{0}/dataView", this.BaseUrl), request.ToJson());
                 dataView = result.FromJson<ApiResponse<DataRecord>>();
             }
             catch (Exception ex)
@@ -284,7 +288,7 @@ namespace DAA.API.UnitTests.Constrollers
             {
                 // Recuperemos los filtros.
                 WebClient clientFilter = new WebClient();
-                string resultFilter = clientFilter.DownloadString(string.Format("{0}/api/datatables/dataFilter?datatable=DT_PLATFORMS", this.BaseUrl));
+                string resultFilter = clientFilter.DownloadString(string.Format("{0}/dataFilter?datatable=DT_PLATFORMS", this.BaseUrl));
                 DataFilter filters = resultFilter.FromJson<DataFilter>();
 
                 // Creamos la petición.
@@ -315,7 +319,7 @@ namespace DAA.API.UnitTests.Constrollers
                 // Recuperamos los datos del DataTable.
                 WebClient client = new WebClient();
                 client.Headers.Add("Content-Type", "application/json");
-                string result = client.UploadString(string.Format("{0}/api/datatables/dataView", this.BaseUrl), request.ToJson());
+                string result = client.UploadString(string.Format("{0}/dataView", this.BaseUrl), request.ToJson());
                 dataView = result.FromJson<ApiResponse<DataRecord>>();
             }
             catch (Exception ex)
@@ -339,7 +343,7 @@ namespace DAA.API.UnitTests.Constrollers
             {
                 // Recuperemos los filtros.
                 WebClient clientFilter = new WebClient();
-                string resultFilter = clientFilter.DownloadString(string.Format("{0}/api/datatables/dataFilter?datatable=DT_VIDEOGAMES", this.BaseUrl));
+                string resultFilter = clientFilter.DownloadString(string.Format("{0}/dataFilter?datatable=DT_VIDEOGAMES", this.BaseUrl));
                 DataFilter filters = resultFilter.FromJson<DataFilter>();
 
                 // Creamos la petición.
@@ -360,7 +364,7 @@ namespace DAA.API.UnitTests.Constrollers
                 // Recuperamos los datos del DataTable.
                 WebClient client = new WebClient();
                 client.Headers.Add("Content-Type", "application/json");
-                string result = client.UploadString(string.Format("{0}/api/datatables/dataView", this.BaseUrl), request.ToJson());
+                string result = client.UploadString(string.Format("{0}/dataView", this.BaseUrl), request.ToJson());
                 dataView = result.FromJson<ApiResponse<DataRecord>>();
             }
             catch (Exception ex)
